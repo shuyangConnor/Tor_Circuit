@@ -131,7 +131,7 @@ class Waiter:
     def is_set(self):
         return self._ev.is_set()
 
-    def get(self, timeout=pow(2, 30)):
+    def get(self, timeout=pow(2, 20)):
         if not self._ev.wait(timeout):
             raise CellTimeoutError('Timeout wait for ' + cells_format(self._cell_types))
         if self._err_msg:

@@ -1,0 +1,79 @@
+Downloading new consensus...
+Connecting to guard node 204.13.164.118:443 authority (bastet)... (Internal dir client)
+Creating new circuit #80000001 with 204.13.164.118:443 authority (bastet) router...
+Stream #1: creating attached to #80000001 circuit...
+Stream #1: connecting to hsdir
+Stream #1: connected (remote ip '')
+		/tor/status-vote/current/consensus/D586D1+14C131+E8A9C4+ED03BB+0232AF+49015F+EFCBE7+23D15D+27102B.z
+Stream #1: remote disconnected (reason = DONE)
+Stream #1: closing (state = Disconnected)...
+Unknown voter present
+Downloading public keys...
+Stream #2: creating attached to #80000001 circuit...
+Stream #2: connecting to hsdir
+Stream #2: connected (remote ip '')
+Stream #2: remote disconnected (reason = DONE)
+Stream #2: closing (state = Disconnected)...
+Unknown voter present
+Selected node 128.31.0.39:9231 AKA moria1
+Selected node 199.58.81.140:80 AKA longclaw
+Selected node 91.172.215.29:17779 AKA Goldenb0y
+Connecting to guard node 128.31.0.39:9201 authority (moria1; Tor 0.4.8.0-alpha-dev)... (TorClient)
+Creating new circuit #bb87b1a9 with 128.31.0.39:9201 authority (moria1; Tor 0.4.8.0-alpha-dev) router...
+Building 3 hops circuit...
+Extending the circuit #bb87b1a9 with 199.58.81.140:443 authority (longclaw; Tor 0.4.7.13)...
+Getting descriptor for 199.58.81.140:443 authority (longclaw; Tor 0.4.7.13)...
+Stream #3: creating attached to #80000001 circuit...
+Stream #3: connecting to hsdir
+Stream #3: connected (remote ip '')
+Stream #3: remote disconnected (reason = DONE)
+Stream #3: closing (state = Disconnected)...
+Got descriptor
+Extending the circuit #bb87b1a9 with 91.172.215.29:16385 (Goldenb0y; Tor 0.4.5.10)...
+Getting descriptor for 91.172.215.29:16385 (Goldenb0y; Tor 0.4.5.10)...
+Stream #4: creating attached to #80000001 circuit...
+Stream #4: connecting to hsdir
+Stream #4: connected (remote ip '')
+Stream #4: remote disconnected (reason = DONE)
+Stream #4: closing (state = Disconnected)...
+Got descriptor
+Stream #5: creating attached to #bb87b1a9 circuit...
+Stream #5: connecting to ('example.com', 80)
+Stream #5: connected (remote ip '93.184.216.34')
+Sending: b'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n' example.com:80
+response HTTP/1.1 200 OK
+Age: 424258
+Cache-Control: max-age=604800
+Content-Type: text/html; charset=UTF-8
+Date: Thu, 04 May 2023 00:22:50 GMT
+Etag: "3147526947+gzip+ident"
+Expires: Thu, 11 May 2023 00:22:50 GMT
+Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
+Server: ECS (dcb/7F14)
+Vary: Accept-Encoding
+X-Cache: HIT
+Content-Length: 1256
+
+<!doctype html>
+<html>
+<head>
+    <title>Example Domain</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+    body {
+        background-color: #f0f0f2;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        
+    }
+    div {
+        width: 600px;
+        margin: 5em auto;
+        padding: 2em;
+        background-color: #fdfdff;
+        border-radius: 0.5em;
+        box-shadow: 2px 3px 

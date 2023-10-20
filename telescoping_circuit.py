@@ -1,6 +1,6 @@
 import logging
 import os
-
+import time
 from argparse import ArgumentParser
 from urllib.parse import urlparse
 
@@ -127,13 +127,16 @@ def extend(circuit, node_router):
     public_B = key_agreement._B.public_bytes_raw()  # Node's public "ntor onion" key, B
 
     # concatenation ID | B | X
-    onion_skin =  #your-code-here#
+    #your-code-here#
+    onion_skin = node_ID + public_B + public_X
 
     # Build an EXTEND cell with the new node's info and our known keys
-    extend_cell =  #your-code-here#
+    #your-code-here#
+    extend_cell = build_extend_cell(node_router, onion_skin)
 
     # Send EXTEND cell to the next node and receive an EXTENDED cell back
-    extended_cell =  #your-code-here#
+    #your-code-here#
+    extended_cell = send_receive_cell_extend(extend_cell, circuit)
 
     # Meanwhile, the server at the new node generates a keypair of y,Y = KEYGEN(), and uses its ntor
     # onion private key, b, to compute H(H(X^y|X^b|ID|B|X|Y, t_verify)|ID|B|Y|X)
@@ -146,9 +149,12 @@ def extend(circuit, node_router):
     public_Y = extended_cell.handshake_data[:32]  # Node's public key, Y
     auth_digest = extended_cell.handshake_data[32:]
 
-    shared_X__y =  #your-code-here#
-    shared_X__b =  #your-code-here#
-    secret_input =  #your-code-here#
+    #your-code-here#
+    shared_X__y = raise_exponent(public_Y, private_x)
+    #your-code-here# 
+    shared_X__b = raise_exponent(public_B, private_x)
+    #your-code-here#
+    secret_input = shared_X__y + shared_X__b
 
     # Complete the remaining hashing, verification - for further reference, read section 5.1.4 and 5.2.2.
     shared_secret = node_extended.complete_handshake(secret_input, public_Y, auth_digest)
@@ -163,6 +169,8 @@ def circuit_build_hops(circuit, middle_router, exit_router):
     logger.info('Building 3 hops circuit...')
 
     #your-code-here#
+    extend(circuit, middle_router)
+    extend(circuit, exit_router)
 
     logger.debug('Circuit has been built')
 
@@ -181,18 +189,22 @@ def circuit_from_guard(guard_router, circuit_id):
     # Then, we need to send it to the first node in the circuit we are trying to create here.
     # Note that TOR_DIGEST_LEN = HASH_LEN = 20 bytes
 
-    x =  #your-code-here#
+    #your-code-here#
+    x = random_bytes(20)
 
-    cell_create =  #your-code-here#
+    #your-code-here#
+    cell_create = build_create_cell(x, circuit_id)
 
-    cell_created =  #your-code-here#
+    #your-code-here#
+    cell_created = send_receive_cell_create(cell_create, circuit, circuit_node)
 
     # Extract the two parts from the received CREATED cell
     y = cell_created.handshake_data[:TOR_DIGEST_LEN]  # Key material (Y)
     key_hash = cell_created.handshake_data[TOR_DIGEST_LEN:]  # Derivative key data
 
     # Please reference 5.1.5 and 5.2.1 of the Tor protocol specification for how to compute K_0 before hashing.
-    k0 =  #your-code-here#
+    #your-code-here#
+    k0 = x + y
 
     k = kdf_tor(k0)
 
@@ -216,22 +228,47 @@ def get(hostname, port, path="", guard_address=None, middle_address=None, exit_a
     # the Tor circuit that will be used to request a web page.
 
     #your-code-here#
+    circuit_id = gen_circuit_id()
 
-    circuit_base =  #your-code-here#  # CREATE
+    all_relays = get_all_relays(tor.consensus)
+    all_exits = get_all_exits(tor.consensus)
+    if guard_address == None:
+        guard_router = random_router(all_relays)
+        all_relays.remove(guard_router)
+    else:
+        guard_router = router_from_ip(guard_address, tor.consensus)
+    if middle_address == None:
+        middle_router = random_router(all_relays)
+    else:
+        middle_router = router_from_ip(middle_address, tor.consensus)
+    if exit_address == None:
+        exit_router = random_router(all_exits)
+    else:
+        exit_router = router_from_ip(exit_address, tor.consensus)
+    
+    #your-code-here#  # CREATE
+    circuit_base = circuit_from_guard(guard_router, circuit_id)
 
-    circuit =  #your-code-here#  # EXTEND
+    #your-code-here#  # EXTEND
+    circuit = circuit_build_hops(circuit_base, middle_router, exit_router)
 
     # Use our established circuit to attach a TCP stream
     port = port or 80
-    stream =  #your-code-here#  # BEGIN
+
+    #your-code-here#  # BEGIN
+    stream = new_tcp_stream(circuit, hostname, port)
 
     # Make an HTTP GET request to the web page at <hostname>:<port>/<path>
-    request =  #your-code-here#
+    #your-code-here#
+    # request = hostname + ":"+ str(port) +"/" + path
+    request = b'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n'
     logger.warning('Sending: %s %s:%s', request, hostname, port)
     #your-code-here#
+    stream.send(request)
 
     logger.debug('Reading...')
-    recv =  #your-code-here#
+    #your-code-here#
+    recv = stream.recv(1024)
 
     return recv.decode('utf-8')
 
@@ -246,7 +283,9 @@ def main():
     parser.add_argument('--outfile', default="", type=str, help='output file path')
     args = parser.parse_args()
     url = urlparse(args.url)
-
+    file = open("time_10.txt", 'w')
+    begin_time = time.time()
+    file.write("Beging to send request at time: "+str(begin_time)+"\n")
     response = get(
         hostname=url.hostname,
         port=url.port, path=url.path,
@@ -254,10 +293,14 @@ def main():
         middle_address=args.middle,
         exit_address=args.exit
     )
-
+    end_time = time.time()
+    file.write("Successfully get the response at time: "+str(end_time)+"\n")
+    file.write("Takes "+str(end_time-begin_time)+" in total.")
+    file.close()
     # Write response to args.outfile or stdout
     if args.outfile == "":
         print('response', response)
+        logger.info('response %s', response)
     else:
         outfile = open(args.outfile, "w")
         outfile.write(response)
@@ -266,7 +309,7 @@ def main():
 
 if __name__ == '__main__':
     logger = logging.getLogger("")
-    register_logger(verbose=0)
+    register_logger(verbose=0, log_file="log_10.txt")
     try:
         main()
     except KeyboardInterrupt:

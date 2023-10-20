@@ -1,0 +1,137 @@
+Downloading new consensus...
+Connecting to guard node 193.23.244.244:443 authority (dannenberg)... (Internal dir client)
+[Errno 2] No such file or directory
+[ignored]
+Traceback (most recent call last):
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\cell_socket.py", line 63, in connect
+    self._socket.connect((self._router.ip, self._router.or_port))
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ssl.py", line 1375, in connect
+    self._real_connect(addr, False)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ssl.py", line 1366, in _real_connect
+    self.do_handshake()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ssl.py", line 1342, in do_handshake
+    self._sslobj.do_handshake()
+FileNotFoundError: [Errno 2] No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\utils.py", line 79, in newfn
+    return func(*args, **kwargs)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 279, in renew
+    raw_string = self.download_consensus(prev_hash)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 227, in newfn
+    return func(*args, **kwargs)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 444, in download_consensus
+    with self._get_dir_client() as dir_client:
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 429, in _get_dir_client
+    self._dir_guard, self._dir_circuit = self._create_dir_circuit(purpose='Internal dir client')
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 419, in _create_dir_circuit
+    guard = TorGuard(router, purpose=purpose)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\guard.py", line 66, in __init__
+    self.__tor_socket.connect()
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\cell_socket.py", line 69, in connect
+    raise TorSocketConnectError(e)
+dependency.torpy.cell_socket.TorSocketConnectError: [Errno 2] No such file or directory
+Retry with another router...
+Wait 3 sec before next retry
+Downloading new consensus...
+Connecting to guard node 193.23.244.244:443 authority (dannenberg)... (Internal dir client)
+EOF occurred in violation of protocol (_ssl.c:1007)
+[ignored]
+Traceback (most recent call last):
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\cell_socket.py", line 63, in connect
+    self._socket.connect((self._router.ip, self._router.or_port))
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ssl.py", line 1375, in connect
+    self._real_connect(addr, False)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ssl.py", line 1366, in _real_connect
+    self.do_handshake()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\ssl.py", line 1342, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:1007)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\utils.py", line 79, in newfn
+    return func(*args, **kwargs)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 279, in renew
+    raw_string = self.download_consensus(prev_hash)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 227, in newfn
+    return func(*args, **kwargs)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 444, in download_consensus
+    with self._get_dir_client() as dir_client:
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 429, in _get_dir_client
+    self._dir_guard, self._dir_circuit = self._create_dir_circuit(purpose='Internal dir client')
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\consesus.py", line 419, in _create_dir_circuit
+    guard = TorGuard(router, purpose=purpose)
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\guard.py", line 66, in __init__
+    self.__tor_socket.connect()
+  File "C:\Users\12450\Desktop\CS558-Tor\cs558tor\dependency\torpy\cell_socket.py", line 69, in connect
+    raise TorSocketConnectError(e)
+dependency.torpy.cell_socket.TorSocketConnectError: EOF occurred in violation of protocol (_ssl.c:1007)
+Retry with another router...
+Wait 5 sec before next retry
+Downloading new consensus...
+Connecting to guard node 86.59.21.38:443 authority (tor26)... (Internal dir client)
+Creating new circuit #80000001 with 86.59.21.38:443 authority (tor26) router...
+Stream #1: creating attached to #80000001 circuit...
+Stream #1: connecting to hsdir
+Stream #1: connected (remote ip '')
+		/tor/status-vote/current/consensus/D586D1+14C131+E8A9C4+ED03BB+0232AF+49015F+EFCBE7+23D15D+27102B.z
+Stream #1: remote disconnected (reason = DONE)
+Stream #1: closing (state = Disconnected)...
+Unknown voter present
+Downloading public keys...
+Stream #2: creating attached to #80000001 circuit...
+Stream #2: connecting to hsdir
+Stream #2: connected (remote ip '')
+Stream #2: remote disconnected (reason = DONE)
+Stream #2: closing (state = Disconnected)...
+Unknown voter present
+Selected node 131.188.40.189:80 AKA gabelmoo
+Selected node 45.66.33.45:80 AKA dizum
+Selected node 185.146.232.191:80 AKA myTor
+Connecting to guard node 131.188.40.189:443 authority (gabelmoo; Tor 0.4.7.13)... (TorClient)
+Creating new circuit #9782d533 with 131.188.40.189:443 authority (gabelmoo; Tor 0.4.7.13) router...
+Building 3 hops circuit...
+Extending the circuit #9782d533 with 45.66.33.45:443 authority (dizum; Tor 0.4.7.13)...
+Getting descriptor for 45.66.33.45:443 authority (dizum; Tor 0.4.7.13)...
+Stream #3: creating attached to #80000001 circuit...
+Stream #3: connecting to hsdir
+Stream #3: connected (remote ip '')
+Stream #3: remote disconnected (reason = DONE)
+Stream #3: closing (state = Disconnected)...
+Got descriptor
+Extending the circuit #9782d533 with 185.146.232.191:443 (myTor; Tor 0.4.5.7)...
+Getting descriptor for 185.146.232.191:443 (myTor; Tor 0.4.5.7)...
+Stream #4: creating attached to #80000001 circuit...
+Stream #4: connecting to hsdir
+Stream #4: connected (remote ip '')
+Stream #4: remote disconnected (reason = DONE)
+Stream #4: closing (state = Disconnected)...
+Got descriptor
+Stream #5: creating attached to #9782d533 circuit...
+Stream #5: connecting to ('example.com', 80)
+Stream #5: connected (remote ip '93.184.216.34')
+Sending: b'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n' example.com:80
+response HTTP/1.1 200 OK
+Age: 206411
+Cache-Control: max-age=604800
+Content-Type: text/html; charset=UTF-8
+Date: Thu, 04 May 2023 00:24:03 GMT
+Etag: "3147526947+ident"
+Expires: Thu, 11 May 2023 00:24:03 GMT
+Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
+Server: ECS (dcb/7F3B)
+Vary: Accept-Encoding
+X-Cache: HIT
+Content-Length: 1256
+
+<!doctype html>
+<html>
+<head>
+    <title>Example Domain</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8
